@@ -26,6 +26,16 @@ app.engine('hbs', hbs.engine({extname: 'hbs', defaultLayout: 'layout', layoutsDi
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+// Connect to MonboDB
+const db = config.get('mongoURI');
+console.log("Connecting to MongoDB");
+mongoose.connect(db, err => {
+    if (err) {
+        throw err;
+    }
+    console.log("Connected to MongoDB");
+});
+
 // set up stylesheets route
 
 // TODO: Add server side code
