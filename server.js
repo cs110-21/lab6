@@ -3,6 +3,10 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 const path = require('path');
+const roomIdGenerator = require('./util/roomIdGenerator.js');
+const mongoose = require('mongoose');
+const config = require('config');
+
 
 // import handlers
 const homeHandler = require('./controllers/home.js');
