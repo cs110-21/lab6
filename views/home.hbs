@@ -18,7 +18,7 @@
 <script>
     window.addEventListener('load', function () {
         setInterval(async function () {
-            fetch('http://localhost:3000/getRoom')
+            fetch('http://localhost:8080/getRoom')
                 .then(response => response.json())
                 .then(data => {
                     var roomsJson = data;
