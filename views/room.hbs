@@ -1,25 +1,52 @@
-<h1> Room </h1>
-<p>This is a demo of chatroom page</p>
-<p>
-    The room you are visiting is {{ roomName }}
-</p>
+<link rel="stylesheet" href="../public/css/style.css">
+
+<h1>{{ roomName }}</h1>
+
 <ul id="list-template">
-    {{#each messages}}
-    <li>{{this}}</li>
-    {{/each}}
 </ul>
+
 <iframe name="iframeSendMessage" style="display:none;"></iframe>
 <form action="/sendMessage" method="POST" id="sendMessageForm" target="iframeSendMessage">
     <input type="hidden" name="id" value="{{id}}" />
+    <input type="hidden" id="nicknameInput" name="nickname" value="" />
     <input type="text" name="messageText" placeholder="enter a message" />
     <input type="submit" id="sendMessageSubmit" value="send message" />
 </form>
+
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js" crossorigin="anonymous"></script>
+
 <script>
-    function sendMessage() {
-        document.getElementById('sendMessageForm').submit();
-        setTimeout(location.reload.bind(location), 500);
+    let nickname = prompt("Please enter a nickname in order to submit your message", "Type in a nickname");
+    document.getElementById('nicknameInput').setAttribute('value', nickname);
+</script>
+
+<script>
+    async function load() {
+        let response = await fetch('http://localhost:8080/messages/{{id}}');
+        if (response.ok) {
+            let json = await response.json();
+            var html = "";
+            var ul_element = document.getElementById('list-template');
+
+            document.getElementById('list-template').innerHTML = " "
+
+            for (var j = 0; j < json.length; ++j) {
+                var li = document.createElement('li');
+                var a = document.createElement('a');
+                li.appendChild(a);
+                document.getElementById('list-template').appendChild(li);
+                a.innerHTML = json[j].nickname + ": " + json[j].text + " (" + moment(json[j].timestamp).utc().format('H:mm A') + ")";
+            }
+        }
+        else {
+            console.log(response.status);
+        }
     }
 
-    document.getElementById('sendMessageSubmit').addEventListener("click", sendMessage);
+    load();
+
+    window.addEventListener('load', function () {
+        setInterval(load, 3000);
+    });
 </script>

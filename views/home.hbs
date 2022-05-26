@@ -1,5 +1,4 @@
 <h1> Home </h1>
-<p>This is the {{ title }} page</p>
 
 {{#if isAvailable}}
 <ul id="list-template">
@@ -9,7 +8,8 @@
 </ul>
 {{/if}}
 
-<form action="/create" method="POST">
+<iframe name="iframeCreate" style="display:none;"></iframe>
+<form action="/create" method="POST" target="iframeCreate">
     <input type="text" name="roomName" placeholder="enter room name" />
     <input type="submit" value="create room" />
 </form>

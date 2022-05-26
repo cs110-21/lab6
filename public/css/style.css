@@ -1,1 +1,10 @@
-/* TODO: style each page */
+#list-template {
+    list-style-type: none;
+
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 20px;
+
+    margin: 0;
+}

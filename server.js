@@ -14,6 +14,7 @@ const Message = require("./models/mongoDB_message");
 // import handlers
 const homeHandler = require('./controllers/home.js');
 const roomHandler = require('./controllers/room.js');
+const { restart } = require('nodemon');
 
 const app = express();
 const port = 8080;
@@ -65,6 +66,7 @@ app.post("/sendMessage", async function (req, res) {
     const currentRoom = await Room.findById(req.body.id);
 
     const newMessage = new Message ({
+        nickname: req.body.nickname,
         text: req.body.messageText,
         id: messageIdGenerator.messageIdGenerator()
     });
@@ -80,6 +82,25 @@ app.get('/', homeHandler.getHome);
 
 //Specific Room
 app.get('/:roomName', roomHandler.getRoom);
+
+app.get('/messages/:id', async function(req, res) {
+    const currentRoom = await Room.findById(req.params.id);
+    if (currentRoom !== null) {
+        let messages = [];
+        for (let i = 0; i < currentRoom.messages.length; i++) {
+            const currentMessage = await Message.findById(currentRoom.messages[i].toString());
+            if (currentMessage !== null) {
+                var messageObject = new Object();
+                messageObject.nickname = currentMessage.nickname;
+                messageObject.text = currentMessage.text;
+                messageObject.timestamp = currentRoom.messages[i].getTimestamp();
+                messages.push(messageObject);
+            }
+        }
+
+        res.json(messages);
+    }
+});
 
 
 // NOTE: This is the sample server.js code we provided, feel free to change the structures

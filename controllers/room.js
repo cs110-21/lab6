@@ -13,13 +13,6 @@ async function getRoom(request, response) {
 
         let messages = [];
 
-        for (let i = 0; i < currentRoom.messages.length; i++) {
-            const currentMessage = await Message.findById(currentRoom.messages[i].toString());
-            if (currentMessage != null) {
-                messages.push(currentMessage.text);
-            }
-        }
-
         response.render('room', { title: 'chatroom', roomName: roomName, id: request.params.roomName, messages: messages});
     }
 }
