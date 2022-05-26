@@ -3,7 +3,8 @@
 <p>
     The room you are visiting is {{ roomName }}
 </p>
-<form >
-    <input type="text" name="message" placeholder="enter a message" />
+<form action="/sendMessage" method="POST">
+    <input type="hidden" name="messageText" value="{{roomName}}"/>
+    <input type="text" name="messageText" placeholder="enter a message" />
     <input type="submit" value="send message"/>
 </form>

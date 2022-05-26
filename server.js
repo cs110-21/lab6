@@ -4,9 +4,11 @@ const cookieParser = require('cookie-parser');
 const hbs = require('express-handlebars');
 const path = require('path');
 const roomIdGenerator = require('./util/roomIdGenerator.js');
+const messageIdGenerator = require('./util/messageIdGenerator.js');
 const mongoose = require('mongoose');
 const config = require('config');
-const Room = require("./models/Rooms");
+const Room = require("./models/mongoDB_room");
+const Message = require("./models/mongoDB_message");
 
 
 // import handlers
@@ -56,7 +58,17 @@ app.post("/create", function (req, res) {
         id: roomIdGenerator.roomIdGenerator()
     });
 
-    newRoom.save().then(console.log("New room created")).catch(err => console.log("Error creating room"));
+    newRoom.save().then(console.log("New room created")).catch(err => console.log(err.message));
+});
+
+app.post("/sendMessage", function (req, res) {
+    console.log(req);
+    const newMessage = new Message ({
+        text: req.body.messageText,
+        id: messageIdGenerator.messageIdGenerator()
+    });
+
+    
 });
 
 //Main page

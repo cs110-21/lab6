@@ -1,7 +1,7 @@
 // Controller handler to handle functionality in home page
 
 // Example for handle a get request at '/' endpoint.
-const Room = require('../models/Rooms');
+const Room = require('../models/mongoDB_room');
 
 function getHome(request, response) {
   // do any work you need to do, then

@@ -1,5 +1,5 @@
-// Helper function to generate a valid room id
-module.exports.roomIdGenerator = function generateRoomIdentifier() {
+// Helper function to generate a valid message id
+module.exports.messageIdGenerator = function generateMessageIdentifier() {
     // make a list of legal characters
     // we're intentionally excluding 0, O, I, and 1 for readability
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
