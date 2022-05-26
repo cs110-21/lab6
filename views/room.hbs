@@ -12,14 +12,14 @@
 <form action="/sendMessage" method="POST" id="sendMessageForm" target="iframeSendMessage">
     <input type="hidden" name="id" value="{{id}}" />
     <input type="text" name="messageText" placeholder="enter a message" />
-    <input type="submit" value="send message" />
+    <input type="submit" id="sendMessageSubmit" value="send message" />
 </form>
 <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
-{{!-- <script>
+<script>
     function sendMessage() {
         document.getElementById('sendMessageForm').submit();
         setTimeout(location.reload.bind(location), 500);
     }
 
-    document.getElementById('sendMessageForm').addEventListener("click", sendMessage);
-</script> --}}
+    document.getElementById('sendMessageSubmit').addEventListener("click", sendMessage);
+</script>
