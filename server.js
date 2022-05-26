@@ -61,14 +61,18 @@ app.post("/create", function (req, res) {
     newRoom.save().then(console.log("New room created")).catch(err => console.log(err.message));
 });
 
-app.post("/sendMessage", function (req, res) {
-    console.log(req);
+app.post("/sendMessage", async function (req, res) {
+    const currentRoom = await Room.findById(req.body.id);
+
     const newMessage = new Message ({
         text: req.body.messageText,
         id: messageIdGenerator.messageIdGenerator()
     });
 
-    
+    newMessage.save().then(console.log("Message created")).catch(err => console.log(err.message));
+
+    currentRoom.messages.push(newMessage);
+    currentRoom.save().then(console.log("Message sent")).catch(err => console.log(err.message));
 });
 
 //Main page
