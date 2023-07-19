@@ -14,7 +14,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^6.0.6",
     "hbs": "^4.2.0",
-    "mongoose": "^6.3.4"
+    "mongoose": "^6.11.3"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
